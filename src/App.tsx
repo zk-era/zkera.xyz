@@ -18,13 +18,26 @@ export default function App() {
 
       <main>
         <p className="lede">
-          Operator, not a wallet. ZK lands at <code>settleBatch</code>, not on
-          each send. Live proof checks EIP-712 transfer signatures. Secrets stay
-          in the BFF — this page never sees them.
+          Era is shared settlement rails on Ethereum — cheap notebook hops in
+          MetaMask/Rainbow; L1 truth at SP1 Groth16 <code>settleBatch</code>. No
+          Era wallet.
+        </p>
+        <p className="honesty">
+          ZK at settleBatch only — not per send. Queued ≠ spendable until the
+          root moves. Live proof checks EIP-712 transfer sigs at settle. Secrets
+          stay BFF-only. Sepolia demo.
         </p>
 
         <WaitlistForm />
         <StatusPanel />
+
+        <p className="client">
+          <a href={REFERENCE_CLIENT_URL} target="_blank" rel="noreferrer">
+            Open the RainbowKit reference client (deposit / send / settle
+            status)
+            <span aria-hidden="true"> ↗</span>
+          </a>
+        </p>
 
         <section className="facts" aria-label="Network facts">
           <div>
@@ -49,16 +62,6 @@ export default function App() {
             <span>~$0.50 usual / max $5 on Sepolia</span>
           </div>
         </section>
-
-        <p className="client">
-          <a href={REFERENCE_CLIENT_URL} target="_blank" rel="noreferrer">
-            Reference client
-            <span aria-hidden="true"> ↗</span>
-          </a>
-          <span className="client-note">
-            RainbowKit · clone and run locally. No hosted demo.
-          </span>
-        </p>
       </main>
     </div>
   );

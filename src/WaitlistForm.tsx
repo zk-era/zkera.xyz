@@ -28,6 +28,7 @@ export default function WaitlistForm() {
 
   return (
     <form className="waitlist" onSubmit={onSubmit} noValidate>
+      <p className="waitlist-cta">Join the Sepolia waitlist.</p>
       <label className="sr-only" htmlFor="email">
         Email
       </label>
@@ -49,7 +50,7 @@ export default function WaitlistForm() {
           disabled={status.kind === "pending"}
         />
         <button type="submit" disabled={status.kind === "pending"}>
-          {status.kind === "pending" ? "Joining…" : "Waitlist"}
+          {status.kind === "pending" ? "Joining…" : "Join"}
         </button>
       </div>
       <p
@@ -64,7 +65,7 @@ export default function WaitlistForm() {
         {status.kind === "success"
           ? status.already
             ? "Already on the list."
-            : "Saved."
+            : "Thanks — you’re on the list."
           : status.kind === "error"
             ? status.message
             : "\u00a0"}

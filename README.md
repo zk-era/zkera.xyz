@@ -16,9 +16,9 @@ The browser talks to public operator endpoints directly (CORS `*`). No env vars.
 
 | Surface | Behavior |
 | --- | --- |
-| Waitlist | `POST https://era-backend.up.railway.app/v1/waitlist` with `{ email }`. Success `{ ok, email, already }`. Invalid email → `400` `{ error: "invalid email" }`. |
-| Status | `GET https://era-backend.up.railway.app/health` every ~10s. Shows short `stateRoot`, `queueLength`, `lastSettleAt`, frozen/paused badges, `stateRootMatchesChain` / `chainStatus`. Queued ≠ spendable. |
-| Reference client | Link to the RainbowKit app at [zk-era/era-app](https://github.com/zk-era/era-app). Clone and run locally — there is no hosted demo. |
+| Waitlist | `POST https://era-backend.up.railway.app/v1/waitlist` with `{ email }`. `201` `{ ok, email, already:false }` / `200` `already:true` / `400` `{ error: "invalid email" }`. CTA: “Join the Sepolia waitlist.” |
+| Status | `GET https://era-backend.up.railway.app/health` every ~10s. Short `stateRoot`, Root match, Queue (ops pending settle), Last settle, Frozen / Paused, optional `chainStatus`. Queued ≠ spendable until the root moves. |
+| Reference client | “Open the RainbowKit reference client (deposit / send / settle status)” → [zk-era/era-app](https://github.com/zk-era/era-app). No hosted demo. |
 
 ## Run
 

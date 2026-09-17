@@ -6,7 +6,7 @@ import type { Health } from "./types";
 
 type Snapshot =
   | { kind: "loading" }
-  | { kind: "live"; health: Health; at: number }
+  | { kind: "live"; health: Health }
   | { kind: "error"; message: string; health?: Health };
 
 export default function StatusPanel() {
@@ -21,7 +21,7 @@ export default function StatusPanel() {
       try {
         const health = await fetchHealth(controller.signal);
         if (cancelled) return;
-        setSnap({ kind: "live", health, at: Date.now() });
+        setSnap({ kind: "live", health });
       } catch (err) {
         if (cancelled || controller.signal.aborted) return;
         setSnap((prev) => ({
@@ -46,7 +46,11 @@ export default function StatusPanel() {
   }, []);
 
   const health =
-    snap.kind === "live" ? snap.health : snap.kind === "error" ? snap.health : undefined;
+    snap.kind === "live"
+      ? snap.health
+      : snap.kind === "error"
+        ? snap.health
+        : undefined;
   const queued = health?.queueLength ?? 0;
   const frozen = Boolean(health?.frozen);
   const paused = Boolean(health?.paused);
@@ -57,8 +61,8 @@ export default function StatusPanel() {
       <header className="status-head">
         <h2 id="status-heading">Status</h2>
         <div className="status-flags">
-          {paused && <span className="badge badge-amber">paused</span>}
-          {frozen && <span className="badge badge-amber">frozen</span>}
+          {paused && <span className="badge badge-amber">Paused</span>}
+          {frozen && <span className="badge badge-amber">Frozen</span>}
           {snap.kind === "live" && (
             <span className="live">
               <span className="live-dot" aria-hidden="true" />
@@ -66,7 +70,9 @@ export default function StatusPanel() {
             </span>
           )}
           {snap.kind === "loading" && <span className="muted">polling</span>}
-          {snap.kind === "error" && <span className="badge badge-rose">unreachable</span>}
+          {snap.kind === "error" && (
+            <span className="badge badge-rose">unreachable</span>
+          )}
         </div>
       </header>
 
@@ -78,11 +84,31 @@ export default function StatusPanel() {
           </dd>
         </div>
         <div>
-          <dt>queueLength</dt>
-          <dd className={queued > 0 ? "amber mono" : "mono"}>{health ? queued : "—"}</dd>
+          <dt>Root match</dt>
+          <dd className={mismatch ? "amber" : undefined}>
+            {health ? (
+              <>
+                {health.stateRootMatchesChain ? "matches" : "root ≠ chain"}
+                {health.chainStatus ? (
+                  <>
+                    <span className="sep">·</span>
+                    <span className="mono">{health.chainStatus}</span>
+                  </>
+                ) : null}
+              </>
+            ) : (
+              "—"
+            )}
+          </dd>
         </div>
         <div>
-          <dt>lastSettleAt</dt>
+          <dt>Queue (ops pending settle)</dt>
+          <dd className={queued > 0 ? "amber mono" : "mono"}>
+            {health ? queued : "—"}
+          </dd>
+        </div>
+        <div>
+          <dt>Last settle</dt>
           <dd
             className="mono"
             title={health ? formatAbsolute(health.lastSettleAt) : undefined}
@@ -90,17 +116,19 @@ export default function StatusPanel() {
             {health ? relativeTime(health.lastSettleAt) : "—"}
           </dd>
         </div>
-        <div>
-          <dt>chain</dt>
-          <dd className={mismatch ? "amber" : undefined}>
+        <div className="status-halt">
+          <dt>Frozen / Paused</dt>
+          <dd>
             {health ? (
-              <>
-                <span className="mono">{health.chainStatus}</span>
-                <span className="sep">·</span>
-                <span>
-                  {health.stateRootMatchesChain ? "root matches" : "root ≠ chain"}
+              frozen || paused ? (
+                <span className="amber">
+                  {[frozen && "Frozen", paused && "Paused"]
+                    .filter(Boolean)
+                    .join(" · ")}
                 </span>
-              </>
+              ) : (
+                <span className="quiet">neither</span>
+              )
             ) : (
               "—"
             )}
@@ -109,8 +137,7 @@ export default function StatusPanel() {
       </dl>
 
       <p className={queued > 0 ? "status-note amber" : "status-note"}>
-        Queued is not spendable. Spendable balances exist after{" "}
-        <code>settleBatch</code>.
+        Queued ≠ spendable until the root moves.
       </p>
     </section>
   );
