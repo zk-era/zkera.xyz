@@ -116,7 +116,7 @@ export default function StatusPanel() {
             {health ? relativeTime(health.lastSettleAt) : "—"}
           </dd>
         </div>
-        <div className="status-halt">
+        <div>
           <dt>Frozen / Paused</dt>
           <dd>
             {health ? (
