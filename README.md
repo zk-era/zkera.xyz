@@ -49,3 +49,5 @@ Point `zkera.xyz` at the Vercel project when ready.
 ## Stack
 
 Vite + React + TypeScript. Lean deps. Public `/health` and `/v1/waitlist` only.
+
+Locked public copy lives in `src/copy.ts` (Lyra). Do not paraphrase, and do not add TPS or dollar metrics.

@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { fetchHealth } from "./api";
 import { HEALTH_POLL_MS } from "./config";
+import {
+  LABEL_FROZEN_PAUSED,
+  LABEL_LAST_SETTLE,
+  LABEL_QUEUE,
+  LABEL_ROOT_MATCH,
+  QUEUED_NOTE,
+} from "./copy";
 import { formatAbsolute, relativeTime, shortHex } from "./format";
 import type { Health } from "./types";
 
@@ -84,7 +91,7 @@ export default function StatusPanel() {
           </dd>
         </div>
         <div>
-          <dt>Root match</dt>
+          <dt>{LABEL_ROOT_MATCH}</dt>
           <dd className={mismatch ? "amber" : undefined}>
             {health ? (
               <>
@@ -102,13 +109,13 @@ export default function StatusPanel() {
           </dd>
         </div>
         <div>
-          <dt>Queue (ops pending settle)</dt>
+          <dt>{LABEL_QUEUE}</dt>
           <dd className={queued > 0 ? "amber mono" : "mono"}>
             {health ? queued : "—"}
           </dd>
         </div>
         <div>
-          <dt>Last settle</dt>
+          <dt>{LABEL_LAST_SETTLE}</dt>
           <dd
             className="mono"
             title={health ? formatAbsolute(health.lastSettleAt) : undefined}
@@ -117,7 +124,7 @@ export default function StatusPanel() {
           </dd>
         </div>
         <div>
-          <dt>Frozen / Paused</dt>
+          <dt>{LABEL_FROZEN_PAUSED}</dt>
           <dd>
             {health ? (
               frozen || paused ? (
@@ -137,7 +144,7 @@ export default function StatusPanel() {
       </dl>
 
       <p className={queued > 0 ? "status-note amber" : "status-note"}>
-        Queued ≠ spendable until the root moves.
+        {QUEUED_NOTE}
       </p>
     </section>
   );

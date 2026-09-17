@@ -1,5 +1,10 @@
 import { FormEvent, useState } from "react";
 import { joinWaitlist } from "./api";
+import {
+  WAITLIST_ALREADY,
+  WAITLIST_CTA,
+  WAITLIST_THANKS,
+} from "./copy";
 
 type Status =
   | { kind: "idle" }
@@ -28,7 +33,7 @@ export default function WaitlistForm() {
 
   return (
     <form className="waitlist" onSubmit={onSubmit} noValidate>
-      <p className="waitlist-cta">Join the Sepolia waitlist.</p>
+      <p className="waitlist-cta">{WAITLIST_CTA}</p>
       <label className="sr-only" htmlFor="email">
         Email
       </label>
@@ -64,8 +69,8 @@ export default function WaitlistForm() {
       >
         {status.kind === "success"
           ? status.already
-            ? "Already on the list."
-            : "Thanks — you’re on the list."
+            ? WAITLIST_ALREADY
+            : WAITLIST_THANKS
           : status.kind === "error"
             ? status.message
             : "\u00a0"}

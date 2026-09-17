@@ -4,6 +4,7 @@ import {
   VAULT_ADDRESS,
   VAULT_EXPLORER_URL,
 } from "./config";
+import { HERO, HONESTY, REFERENCE_CLIENT_CTA } from "./copy";
 import { shortHex } from "./format";
 import StatusPanel from "./StatusPanel";
 import WaitlistForm from "./WaitlistForm";
@@ -17,24 +18,15 @@ export default function App() {
       </header>
 
       <main>
-        <p className="lede">
-          Era is shared settlement rails on Ethereum — cheap notebook hops in
-          MetaMask/Rainbow; L1 truth at SP1 Groth16 <code>settleBatch</code>. No
-          Era wallet.
-        </p>
-        <p className="honesty">
-          ZK at settleBatch only — not per send. Queued ≠ spendable until the
-          root moves. Live proof checks EIP-712 transfer sigs at settle. Secrets
-          stay BFF-only. Sepolia demo.
-        </p>
+        <p className="lede">{HERO}</p>
+        <p className="honesty">{HONESTY}</p>
 
         <WaitlistForm />
         <StatusPanel />
 
         <p className="client">
           <a href={REFERENCE_CLIENT_URL} target="_blank" rel="noreferrer">
-            Open the RainbowKit reference client (deposit / send / settle
-            status)
+            {REFERENCE_CLIENT_CTA}
             <span aria-hidden="true"> ↗</span>
           </a>
         </p>
@@ -56,10 +48,6 @@ export default function App() {
             <a href={OPERATOR_URL} target="_blank" rel="noreferrer">
               era-backend.up.railway.app
             </a>
-          </div>
-          <div>
-            <span className="k">Fees</span>
-            <span>~$0.50 usual / max $5 on Sepolia</span>
           </div>
         </section>
       </main>
