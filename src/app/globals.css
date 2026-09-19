@@ -149,6 +149,14 @@ a:hover {
   color: var(--yellow);
 }
 
+.hero {
+  margin: 0 0 0.85rem;
+  font-size: clamp(1.85rem, 4.5vw, 2.45rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
 .page-title {
   margin: 0 0 0.85rem;
   font-size: 1.7rem;
@@ -159,8 +167,27 @@ a:hover {
 .lede {
   margin: 0 0 0.85rem;
   color: #d0d0d8;
-  font-size: 1.15rem;
-  line-height: 1.45;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 0 0 1.15rem;
+  padding: 0;
+}
+
+.chips li {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--purple);
+  border: 1px solid color-mix(in srgb, var(--purple) 40%, transparent);
+  padding: 0.28rem 0.5rem;
+  border-radius: 2px;
 }
 
 .honesty,
@@ -191,13 +218,26 @@ a:hover {
   font-weight: 500;
 }
 
-.waitlist-row {
-  display: flex;
+.waitlist-grid {
+  display: grid;
   gap: 0.5rem;
 }
 
-.waitlist input {
-  flex: 1;
+@media (min-width: 560px) {
+  .waitlist-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .waitlist-grid #email,
+  .waitlist-grid #shipping,
+  .waitlist-grid button {
+    grid-column: 1 / -1;
+  }
+}
+
+.waitlist input,
+.waitlist select {
+  width: 100%;
   min-width: 0;
   height: 2.5rem;
   padding: 0 0.75rem;
@@ -210,11 +250,23 @@ a:hover {
   outline: none;
 }
 
+.waitlist select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #7a7a82 50%),
+    linear-gradient(135deg, #7a7a82 50%, transparent 50%);
+  background-position:
+    calc(100% - 16px) 50%,
+    calc(100% - 11px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
 .waitlist input::placeholder {
   color: #5c5c64;
 }
 
-.waitlist input:focus {
+.waitlist input:focus,
+.waitlist select:focus {
   border-color: var(--focus);
 }
 
@@ -238,7 +290,8 @@ a:hover {
 }
 
 .waitlist button:disabled,
-.waitlist input:disabled {
+.waitlist input:disabled,
+.waitlist select:disabled {
   opacity: 0.55;
   cursor: default;
 }
@@ -550,9 +603,73 @@ a:hover {
   }
 }
 
+.how {
+  margin: 0 0 2rem;
+}
+
+.how h2,
+.fee-aside h2 {
+  margin: 0 0 0.85rem;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--label);
+}
+
+.how-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.95rem;
+}
+
+.how-list li {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.75rem;
+}
+
+.how-n {
+  font-family: var(--font-mono), "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--yellow);
+  padding-top: 0.15rem;
+}
+
+.how-list h3 {
+  margin: 0 0 0.25rem;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.how-list p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+.fee-aside {
+  margin: 1.75rem 0 0;
+  padding: 1rem 1.05rem;
+  border-left: 2px solid var(--yellow);
+  background: var(--bg-elev);
+}
+
+.fee-aside p {
+  margin: 0;
+  color: #c8c8ce;
+  font-size: 14px;
+}
+
+.eval-facts {
+  margin-top: 0.65rem;
+}
+
 @media (max-width: 480px) {
-  .waitlist-row {
-    flex-direction: column;
+  .waitlist-grid {
+    grid-template-columns: 1fr;
   }
 
   .status-grid div,

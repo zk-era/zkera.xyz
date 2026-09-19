@@ -14,7 +14,7 @@ Own repo under `zk-era/zkera.xyz`.
 
 | Path | Page |
 | --- | --- |
-| `/` | Home — hero, waitlist, live status, reference client |
+| `/` | Home — hero, trust chips, partner waitlist, how-it-works, live status, reference client |
 | `/solutions` | Settlement rails (not a wallet) |
 | `/resources` | Reference client, public operator, vault |
 | `/about` | Scope and locked honesty |
@@ -27,7 +27,7 @@ Public operator endpoints only (CORS `*`). No env vars. No API key.
 
 | Surface | Behavior |
 | --- | --- |
-| Waitlist | `POST https://operator.zkera.xyz/v1/waitlist` with `{ email }`. `201` `{ ok, email, already:false }` / `200` `already:true` / `400` `{ error: "invalid email" }`. CTA: “Join the Sepolia waitlist.” |
+| Waitlist | Partner waitlist (not an app download). `POST https://operator.zkera.xyz/v1/waitlist` with `{ email }` plus optional `company`, `role` (`wallet` / `sdk` / `other`), `shipping`. Locked contract is `{ email }`. `201` `{ ok, email, already:false }` / `200` `already:true` / `400` `{ error: "invalid email" }`. |
 | Status | `GET https://operator.zkera.xyz/health` every ~10s. Short `stateRoot`, Root match, Queue (ops pending settle), Last settle, Frozen / Paused, optional `chainStatus`. Queued ≠ spendable until the root moves. |
 | Reference client | “Open the RainbowKit reference client (deposit / send / settle status)” → [zk-era/era-app](https://github.com/zk-era/era-app). No hosted demo. |
 
@@ -35,7 +35,7 @@ Use `operator.zkera.xyz` everywhere — not `era-backend.up.railway.app`.
 
 ## Copy
 
-Placeholder strings live in `src/lib/copy.ts` so Lyra (claim-safe final) and Mira (adoption / GTM) can swap without hunting JSX. Do not paraphrase locked hero / honesty claims, and do not add TPS or dollar metrics.
+Strings live in `src/lib/copy.ts` (Lyra claim-safe + Mira GTM). Home hero is “Ethereum transfers. Without another chain.” Fees (~$0.50 / max $5) stay on Solutions only — never Home. Do not add TPS, traction, or dollar metrics on Home.
 
 ## Run
 
