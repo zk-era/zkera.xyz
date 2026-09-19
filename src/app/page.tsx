@@ -1,31 +1,42 @@
-import NetworkFacts from "@/components/NetworkFacts";
-import ReferenceClientLink from "@/components/ReferenceClientLink";
+import CtaRow from "@/components/CtaRow";
 import StatusPanel from "@/components/StatusPanel";
 import WaitlistForm from "@/components/WaitlistForm";
-import { chips, hero, heroSub, home, honesty, howItWorks, waitlist } from "@/lib/copy";
+import { chips, cta, hero, home } from "@/lib/copy";
 
 export default function HomePage() {
   return (
     <>
-      <p className="eyebrow">{home.eyebrow}</p>
-      <h1 className="hero">{hero}</h1>
-      <p className="lede">{heroSub}</p>
+      <h1 className="hero">{hero.headline}</h1>
+      <p className="lede">{hero.sub}</p>
+      <CtaRow
+        primaryHref="/#waitlist"
+        primary={cta.primary}
+        secondaryHref="/#how"
+        secondary={cta.homeSecondary}
+      />
+      <p className="microtrust">{hero.microtrust}</p>
       <ul className="chips" aria-label="Trust notes">
         {chips.map((chip) => (
           <li key={chip}>{chip}</li>
         ))}
       </ul>
-      <p className="honesty">{honesty}</p>
 
-      <section id="waitlist" className="waitlist-block">
-        <p className="waitlist-lead">{waitlist.lead}</p>
-        <WaitlistForm />
+      <section className="band" aria-labelledby="tiles-heading">
+        <h2 id="tiles-heading">{home.tilesTitle}</h2>
+        <ul className="tile-list">
+          {home.tiles.map((tile) => (
+            <li key={tile.title} className="card">
+              <h3>{tile.title}</h3>
+              <p>{tile.body}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
-      <section className="how" aria-labelledby="how-heading">
-        <h2 id="how-heading">{howItWorks.title}</h2>
+      <section id="how" className="how band" aria-labelledby="how-heading">
+        <h2 id="how-heading">{home.howTitle}</h2>
         <ol className="how-list">
-          {howItWorks.steps.map((step) => (
+          {home.howSteps.map((step) => (
             <li key={step.n}>
               <span className="how-n">{step.n}</span>
               <div>
@@ -35,14 +46,32 @@ export default function HomePage() {
             </li>
           ))}
         </ol>
+        <p className="how-footer">{home.howFooter}</p>
+      </section>
+
+      <section className="band" aria-labelledby="who-heading">
+        <h2 id="who-heading">{home.whoTitle}</h2>
+        <ul className="plain-list">
+          {home.who.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="band" aria-labelledby="why-heading">
+        <h2 id="why-heading">{home.whyTitle}</h2>
+        <p className="prose">{home.why}</p>
       </section>
 
       <div id="status">
         <StatusPanel />
       </div>
 
-      <ReferenceClientLink />
-      <NetworkFacts />
+      <section id="waitlist" className="band close-band">
+        <h2 className="page-title">{home.closeHeadline}</h2>
+        <WaitlistForm />
+        <p className="honesty">{home.closeFine}</p>
+      </section>
     </>
   );
 }

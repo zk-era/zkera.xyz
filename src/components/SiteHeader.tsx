@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { nav } from "@/lib/copy";
+import { cta, nav } from "@/lib/copy";
 
 const links = [
   { href: "/", label: nav.home },
@@ -37,6 +37,9 @@ export default function SiteHeader() {
             );
           })}
         </nav>
+        <Link href="/#waitlist" className="header-cta">
+          {cta.primary}
+        </Link>
         <span className="net">{nav.network}</span>
       </div>
     </header>

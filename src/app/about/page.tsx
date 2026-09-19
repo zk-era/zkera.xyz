@@ -1,37 +1,56 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { about, footer, honesty } from "@/lib/copy";
+import CtaRow from "@/components/CtaRow";
+import { about, cta } from "@/lib/copy";
 
 export const metadata: Metadata = {
   title: about.title,
-  description: about.lede,
+  description: about.body,
 };
 
 export default function AboutPage() {
   return (
     <>
-      <h1 className="page-title">{about.title}</h1>
-      <p className="lede">{about.lede}</p>
+      <h1 className="page-title">{about.headline}</h1>
+      <p className="lede">{about.body}</p>
 
-      {about.body.map((paragraph) => (
-        <p key={paragraph} className="prose">
-          {paragraph}
-        </p>
-      ))}
-
-      <section className="callout" aria-labelledby="scope-heading">
-        <h2 id="scope-heading">{about.scopeTitle}</h2>
+      <section className="band" aria-labelledby="toward-heading">
+        <h2 id="toward-heading">{about.towardTitle}</h2>
         <ul className="plain-list">
-          {about.scopeItems.map((item) => (
+          {about.toward.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
       </section>
 
-      <p className="honesty">{honesty}</p>
-      <p className="client">
-        <Link href="/#waitlist">{footer.waitlist}</Link>
-      </p>
+      <section className="band" aria-labelledby="today-heading">
+        <h2 id="today-heading">{about.todayTitle}</h2>
+        <ul className="plain-list">
+          {about.today.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="band" aria-labelledby="not-heading">
+        <h2 id="not-heading">{about.notTitle}</h2>
+        <ul className="plain-list">
+          {about.not.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="founder-slot" aria-labelledby="founder-heading">
+        <h2 id="founder-heading">{about.founderTitle}</h2>
+        <p className="quiet">{about.founderSlot}</p>
+      </section>
+
+      <CtaRow
+        primaryHref="/#waitlist"
+        primary={cta.primary}
+        secondaryHref="/resources"
+        secondary={cta.docs}
+      />
     </>
   );
 }

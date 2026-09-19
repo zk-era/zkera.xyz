@@ -11,6 +11,7 @@ export async function fetchHealth(signal?: AbortSignal): Promise<Health> {
 
 export type WaitlistPayload = {
   email: string;
+  name?: string;
   company?: string;
   role?: string;
   shipping?: string;
@@ -20,6 +21,7 @@ export async function joinWaitlist(
   payload: WaitlistPayload,
 ): Promise<WaitlistResult> {
   const bodyOut: Record<string, string> = { email: payload.email };
+  if (payload.name) bodyOut.name = payload.name;
   if (payload.company) bodyOut.company = payload.company;
   if (payload.role) bodyOut.role = payload.role;
   if (payload.shipping) bodyOut.shipping = payload.shipping;

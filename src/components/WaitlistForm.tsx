@@ -12,6 +12,7 @@ type Status =
 
 export default function WaitlistForm() {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
   const [shipping, setShipping] = useState("");
@@ -29,6 +30,7 @@ export default function WaitlistForm() {
     try {
       const result = await joinWaitlist({
         email: email.trim(),
+        name: name.trim() || undefined,
         company: company.trim() || undefined,
         role: role || undefined,
         shipping: shipping.trim() || undefined,
@@ -64,6 +66,22 @@ export default function WaitlistForm() {
           }}
           disabled={status.kind === "pending"}
           required
+        />
+        <label className="sr-only" htmlFor="name">
+          {copy.nameLabel}
+        </label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          autoComplete="name"
+          placeholder={copy.namePlaceholder}
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+            resetOutcome();
+          }}
+          disabled={status.kind === "pending"}
         />
         <label className="sr-only" htmlFor="company">
           {copy.companyLabel}

@@ -6,7 +6,7 @@ import {
   VAULT_ADDRESS,
   VAULT_EXPLORER_URL,
 } from "@/lib/config";
-import { footer, facts, nav } from "@/lib/copy";
+import { cta, facts, footer, nav } from "@/lib/copy";
 import { shortHex } from "@/lib/format";
 
 export default function SiteFooter() {
@@ -15,7 +15,7 @@ export default function SiteFooter() {
       <div className="footer-inner">
         <div className="footer-brand">
           <span className="brand">{nav.brand}</span>
-          <p className="footer-disclaimer">{footer.disclaimer}</p>
+          <p className="footer-disclaimer">{footer.honesty}</p>
         </div>
         <nav className="footer-nav" aria-label="Footer">
           <Link href="/">{nav.home}</Link>
@@ -23,6 +23,7 @@ export default function SiteFooter() {
           <Link href="/resources">{nav.resources}</Link>
           <Link href="/about">{nav.about}</Link>
           <Link href="/#waitlist">{footer.waitlist}</Link>
+          <Link href="/resources">{cta.docs}</Link>
         </nav>
         <div className="footer-facts">
           <div>
