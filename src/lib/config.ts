@@ -1,4 +1,5 @@
-export const OPERATOR_URL = "https://era-backend.up.railway.app";
+export const OPERATOR_HOST = "operator.zkera.xyz";
+export const OPERATOR_URL = `https://${OPERATOR_HOST}`;
 export const HEALTH_URL = `${OPERATOR_URL}/health`;
 export const WAITLIST_URL = `${OPERATOR_URL}/v1/waitlist`;
 

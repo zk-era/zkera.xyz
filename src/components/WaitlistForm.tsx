@@ -1,10 +1,8 @@
+"use client";
+
 import { FormEvent, useState } from "react";
-import { joinWaitlist } from "./api";
-import {
-  WAITLIST_ALREADY,
-  WAITLIST_CTA,
-  WAITLIST_THANKS,
-} from "./copy";
+import { joinWaitlist } from "@/lib/api";
+import { waitlist as copy } from "@/lib/copy";
 
 type Status =
   | { kind: "idle" }
@@ -27,15 +25,15 @@ export default function WaitlistForm() {
         setStatus({ kind: "error", message: result.error });
       }
     } catch {
-      setStatus({ kind: "error", message: "could not reach operator" });
+      setStatus({ kind: "error", message: copy.unreachable });
     }
   }
 
   return (
     <form className="waitlist" onSubmit={onSubmit} noValidate>
-      <p className="waitlist-cta">{WAITLIST_CTA}</p>
+      <p className="waitlist-cta">{copy.cta}</p>
       <label className="sr-only" htmlFor="email">
-        Email
+        {copy.emailLabel}
       </label>
       <div className="waitlist-row">
         <input
@@ -44,7 +42,7 @@ export default function WaitlistForm() {
           type="email"
           inputMode="email"
           autoComplete="email"
-          placeholder="email"
+          placeholder={copy.placeholder}
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
@@ -55,7 +53,7 @@ export default function WaitlistForm() {
           disabled={status.kind === "pending"}
         />
         <button type="submit" disabled={status.kind === "pending"}>
-          {status.kind === "pending" ? "Joining…" : "Join"}
+          {status.kind === "pending" ? copy.joining : copy.join}
         </button>
       </div>
       <p
@@ -69,8 +67,8 @@ export default function WaitlistForm() {
       >
         {status.kind === "success"
           ? status.already
-            ? WAITLIST_ALREADY
-            : WAITLIST_THANKS
+            ? copy.already
+            : copy.thanks
           : status.kind === "error"
             ? status.message
             : "\u00a0"}

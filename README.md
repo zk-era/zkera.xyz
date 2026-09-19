@@ -1,24 +1,41 @@
 # zkera.xyz
 
-Thin public one-pager for Era (Sepolia).
+Public marketing site for Era (Sepolia). Next.js App Router.
 
-**Scope (locked 2026-09-17):** waitlist CTA, live status from operator `/health`, link to the RainbowKit reference client. Not an Era wallet. Not the faucet. BFF-only secrets — never `PARTNER_API_KEY` / partner JWT in the browser. ZK is at `settleBatch`, not per send.
+**Scope:** waitlist CTA, live status from operator `/health`, link to the RainbowKit reference client. Not an Era wallet. Not the faucet. BFF-only secrets — never `PARTNER_API_KEY` / partner JWT in the browser or `NEXT_PUBLIC_*`. ZK is at `settleBatch`, not per send.
 
 **Domain:** `zkera.xyz`  
 **Live vault (Sepolia):** [`0xa61a0569C4918C3B8b05d77A6a1638023859b565`](https://sepolia.etherscan.io/address/0xa61a0569C4918C3B8b05d77A6a1638023859b565)  
-**Operator:** `https://era-backend.up.railway.app`
+**Operator:** `https://operator.zkera.xyz`
 
-Own repo under `zk-era/zkera.xyz`. Nested at `work/era/zkera.xyz` and gitignored by the parent docs repo.
+Own repo under `zk-era/zkera.xyz`.
 
-## What this page does
+## Routes
 
-The browser talks to public operator endpoints directly (CORS `*`). No env vars. No API key.
+| Path | Page |
+| --- | --- |
+| `/` | Home — hero, waitlist, live status, reference client |
+| `/solutions` | Settlement rails (not a wallet) |
+| `/resources` | Reference client, public operator, vault |
+| `/about` | Scope and locked honesty |
+
+Shared nav + footer on every page.
+
+## What the browser talks to
+
+Public operator endpoints only (CORS `*`). No env vars. No API key.
 
 | Surface | Behavior |
 | --- | --- |
-| Waitlist | `POST https://era-backend.up.railway.app/v1/waitlist` with `{ email }`. `201` `{ ok, email, already:false }` / `200` `already:true` / `400` `{ error: "invalid email" }`. CTA: “Join the Sepolia waitlist.” |
-| Status | `GET https://era-backend.up.railway.app/health` every ~10s. Short `stateRoot`, Root match, Queue (ops pending settle), Last settle, Frozen / Paused, optional `chainStatus`. Queued ≠ spendable until the root moves. |
+| Waitlist | `POST https://operator.zkera.xyz/v1/waitlist` with `{ email }`. `201` `{ ok, email, already:false }` / `200` `already:true` / `400` `{ error: "invalid email" }`. CTA: “Join the Sepolia waitlist.” |
+| Status | `GET https://operator.zkera.xyz/health` every ~10s. Short `stateRoot`, Root match, Queue (ops pending settle), Last settle, Frozen / Paused, optional `chainStatus`. Queued ≠ spendable until the root moves. |
 | Reference client | “Open the RainbowKit reference client (deposit / send / settle status)” → [zk-era/era-app](https://github.com/zk-era/era-app). No hosted demo. |
+
+Use `operator.zkera.xyz` everywhere — not `era-backend.up.railway.app`.
+
+## Copy
+
+Placeholder strings live in `src/lib/copy.ts` so Lyra (claim-safe final) and Mira (adoption / GTM) can swap without hunting JSX. Do not paraphrase locked hero / honesty claims, and do not add TPS or dollar metrics.
 
 ## Run
 
@@ -27,27 +44,23 @@ npm install
 npm run dev
 ```
 
-Opens Vite at [http://localhost:5173](http://localhost:5173).
+Opens Next.js at [http://localhost:3000](http://localhost:3000).
 
 ## Build
 
 ```bash
 npm run build
-npm run preview
+npm start
 ```
-
-Static output is `dist/`.
 
 ## Deploy (Vercel)
 
 1. Import `zk-era/zkera.xyz`.
-2. Framework preset: Vite. Build `npm run build`, output `dist`.
-3. Do **not** set `PARTNER_API_KEY` or any other secret. This site has none.
+2. Framework preset: Next.js. Build `npm run build`.
+3. Do **not** set `PARTNER_API_KEY`, partner JWTs, or any other secret. This site has none. Do not put secrets in `NEXT_PUBLIC_*`.
 
 Point `zkera.xyz` at the Vercel project when ready.
 
 ## Stack
 
-Vite + React + TypeScript. Lean deps. Public `/health` and `/v1/waitlist` only.
-
-Locked public copy lives in `src/copy.ts` (Lyra). Do not paraphrase, and do not add TPS or dollar metrics.
+Next.js App Router + React + TypeScript. Lean deps. Public `/health` and `/v1/waitlist` only.
