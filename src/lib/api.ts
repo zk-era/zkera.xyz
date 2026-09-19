@@ -9,11 +9,27 @@ export async function fetchHealth(signal?: AbortSignal): Promise<Health> {
   return (await res.json()) as Health;
 }
 
-export async function joinWaitlist(email: string): Promise<WaitlistResult> {
+export type WaitlistPayload = {
+  email: string;
+  name?: string;
+  company?: string;
+  role?: string;
+  shipping?: string;
+};
+
+export async function joinWaitlist(
+  payload: WaitlistPayload,
+): Promise<WaitlistResult> {
+  const bodyOut: Record<string, string> = { email: payload.email };
+  if (payload.name) bodyOut.name = payload.name;
+  if (payload.company) bodyOut.company = payload.company;
+  if (payload.role) bodyOut.role = payload.role;
+  if (payload.shipping) bodyOut.shipping = payload.shipping;
+
   const res = await fetch(WAITLIST_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email }),
+    body: JSON.stringify(bodyOut),
   });
   const body: unknown = await res.json().catch(() => null);
 
@@ -26,7 +42,7 @@ export async function joinWaitlist(email: string): Promise<WaitlistResult> {
     const okBody = body as { email?: string; already?: boolean };
     return {
       ok: true,
-      email: typeof okBody.email === "string" ? okBody.email : email,
+      email: typeof okBody.email === "string" ? okBody.email : payload.email,
       already: Boolean(okBody.already),
     };
   }

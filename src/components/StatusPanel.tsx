@@ -1,15 +1,11 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { fetchHealth } from "./api";
-import { HEALTH_POLL_MS } from "./config";
-import {
-  LABEL_FROZEN_PAUSED,
-  LABEL_LAST_SETTLE,
-  LABEL_QUEUE,
-  LABEL_ROOT_MATCH,
-  QUEUED_NOTE,
-} from "./copy";
-import { formatAbsolute, relativeTime, shortHex } from "./format";
-import type { Health } from "./types";
+import { fetchHealth } from "@/lib/api";
+import { HEALTH_POLL_MS } from "@/lib/config";
+import { status as copy } from "@/lib/copy";
+import { formatAbsolute, relativeTime, shortHex } from "@/lib/format";
+import type { Health } from "@/lib/types";
 
 type Snapshot =
   | { kind: "loading" }
@@ -33,7 +29,7 @@ export default function StatusPanel() {
         if (cancelled || controller.signal.aborted) return;
         setSnap((prev) => ({
           kind: "error",
-          message: err instanceof Error ? err.message : "health unreachable",
+          message: err instanceof Error ? err.message : copy.unreachable,
           health: prev.kind === "loading" ? undefined : prev.health,
         }));
       } finally {
@@ -66,36 +62,38 @@ export default function StatusPanel() {
   return (
     <section className="status" aria-labelledby="status-heading">
       <header className="status-head">
-        <h2 id="status-heading">Status</h2>
+        <h2 id="status-heading">{copy.heading}</h2>
         <div className="status-flags">
-          {paused && <span className="badge badge-amber">Paused</span>}
-          {frozen && <span className="badge badge-amber">Frozen</span>}
+          {paused && <span className="badge badge-amber">{copy.paused}</span>}
+          {frozen && <span className="badge badge-amber">{copy.frozen}</span>}
           {snap.kind === "live" && (
             <span className="live">
               <span className="live-dot" aria-hidden="true" />
-              live
+              {copy.live}
             </span>
           )}
-          {snap.kind === "loading" && <span className="muted">polling</span>}
+          {snap.kind === "loading" && (
+            <span className="muted">{copy.polling}</span>
+          )}
           {snap.kind === "error" && (
-            <span className="badge badge-rose">unreachable</span>
+            <span className="badge badge-rose">{copy.unreachable}</span>
           )}
         </div>
       </header>
 
       <dl className="status-grid">
         <div>
-          <dt>stateRoot</dt>
+          <dt>{copy.stateRoot}</dt>
           <dd title={health?.stateRoot ?? undefined} className="mono">
             {health ? shortHex(health.stateRoot) : "—"}
           </dd>
         </div>
         <div>
-          <dt>{LABEL_ROOT_MATCH}</dt>
+          <dt>{copy.rootMatch}</dt>
           <dd className={mismatch ? "amber" : undefined}>
             {health ? (
               <>
-                {health.stateRootMatchesChain ? "matches" : "root ≠ chain"}
+                {health.stateRootMatchesChain ? copy.matches : copy.mismatch}
                 {health.chainStatus ? (
                   <>
                     <span className="sep">·</span>
@@ -109,13 +107,13 @@ export default function StatusPanel() {
           </dd>
         </div>
         <div>
-          <dt>{LABEL_QUEUE}</dt>
+          <dt>{copy.queue}</dt>
           <dd className={queued > 0 ? "amber mono" : "mono"}>
             {health ? queued : "—"}
           </dd>
         </div>
         <div>
-          <dt>{LABEL_LAST_SETTLE}</dt>
+          <dt>{copy.lastSettle}</dt>
           <dd
             className="mono"
             title={health ? formatAbsolute(health.lastSettleAt) : undefined}
@@ -124,17 +122,17 @@ export default function StatusPanel() {
           </dd>
         </div>
         <div>
-          <dt>{LABEL_FROZEN_PAUSED}</dt>
+          <dt>{copy.frozenPaused}</dt>
           <dd>
             {health ? (
               frozen || paused ? (
                 <span className="amber">
-                  {[frozen && "Frozen", paused && "Paused"]
+                  {[frozen && copy.frozen, paused && copy.paused]
                     .filter(Boolean)
                     .join(" · ")}
                 </span>
               ) : (
-                <span className="quiet">neither</span>
+                <span className="quiet">{copy.neither}</span>
               )
             ) : (
               "—"
@@ -144,7 +142,7 @@ export default function StatusPanel() {
       </dl>
 
       <p className={queued > 0 ? "status-note amber" : "status-note"}>
-        {QUEUED_NOTE}
+        {copy.queuedNote}
       </p>
     </section>
   );
