@@ -52,7 +52,7 @@ export const notes = {
   bff: "Secrets stay BFF-only. Never in the browser.",
   sepolia: "Live on Sepolia",
   feeAside:
-    "Sepolia notebook hops: usual ~$0.50, max $5 (fee UI / unit-econ only — never Home hero).",
+    "Sepolia notebook hops: usual ~$0.50, max $5.",
 };
 
 export const waitlist = {
