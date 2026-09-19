@@ -25,6 +25,27 @@ export default function SolutionsPage() {
             <h2>{job.title}</h2>
             <p>{job.body}</p>
             <p className="proof">{job.proof}</p>
+            {"citeLive" in job && job.citeLive ? (
+              <ul className="plain-list eval-facts">
+                <li>
+                  Live vault{" "}
+                  <a
+                    className="mono"
+                    href={VAULT_EXPLORER_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {VAULT_ADDRESS}
+                  </a>
+                </li>
+                <li>
+                  Operator{" "}
+                  <a href={OPERATOR_URL} target="_blank" rel="noreferrer">
+                    {OPERATOR_HOST}
+                  </a>
+                </li>
+              </ul>
+            ) : null}
           </li>
         ))}
       </ul>
@@ -32,28 +53,6 @@ export default function SolutionsPage() {
       <aside className="fee-aside" aria-label="Fees">
         <p>{notes.feeAside}</p>
       </aside>
-
-      <section className="card" aria-label="Live surfaces">
-        <ul className="plain-list eval-facts">
-          <li>
-            Live vault{" "}
-            <a
-              className="mono"
-              href={VAULT_EXPLORER_URL}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {VAULT_ADDRESS}
-            </a>
-          </li>
-          <li>
-            Operator{" "}
-            <a href={OPERATOR_URL} target="_blank" rel="noreferrer">
-              {OPERATOR_HOST}
-            </a>
-          </li>
-        </ul>
-      </section>
 
       <CtaRow
         primaryHref="/#waitlist"

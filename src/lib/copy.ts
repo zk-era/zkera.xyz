@@ -105,7 +105,7 @@ export const home = {
     {
       n: "02",
       title: "Send",
-      body: "Send inside the vault with signed intents — cheap hops. Queued ≠ spendable yet.",
+      body: "Send inside the vault with signed intents — cheap hops. Queued ≠ spendable until settle. Balances aren’t spendable until then.",
     },
     {
       n: "03",
@@ -145,8 +145,8 @@ export const solutions = {
     {
       title: "A Sepolia spine you can actually poke.",
       body: "Live vault, operator, settle path, and an escape hatch you can reason about — not a slide-only architecture.",
-      proof:
-        "Queued ≠ spendable is explicit. Vault 0xa61a0569…b565 · operator.zkera.xyz.",
+      proof: "Queued ≠ spendable is explicit.",
+      citeLive: true,
     },
   ],
 };
@@ -187,7 +187,7 @@ export const resources = {
     "Mainnet-ready / audited",
     "Invented traction metrics",
     "YC or other affiliation",
-    "Only project with this physics",
+    "Uniqueness claims about settlement physics",
   ],
   honestyNote:
     "Resources describe Sepolia. Production fee economics and mainnet are not claimed here.",
