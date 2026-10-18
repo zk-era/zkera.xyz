@@ -5,7 +5,7 @@ Public marketing site for Era (Sepolia). Next.js App Router.
 **Scope:** waitlist CTA, live status from operator `/health`, link to the RainbowKit reference client. Not an Era wallet. Not the faucet. BFF-only secrets — never `PARTNER_API_KEY` / partner JWT in the browser or `NEXT_PUBLIC_*`. ZK is at `settleBatch`, not per send.
 
 **Domain:** `zkera.xyz`  
-**Live vault (Sepolia):** [`0xa61a0569C4918C3B8b05d77A6a1638023859b565`](https://sepolia.etherscan.io/address/0xa61a0569C4918C3B8b05d77A6a1638023859b565)  
+**Sepolia test vault (mid-test, ETH off):** [`0xDF7c478Bd7faD61a5cEe7B85766eFb44e5C13761`](https://sepolia.etherscan.io/address/0xDF7c478Bd7faD61a5cEe7B85766eFb44e5C13761)  
 **Operator:** `https://operator.zkera.xyz`
 
 Own repo under `zk-era/zkera.xyz`.

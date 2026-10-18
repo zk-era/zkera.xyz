@@ -28,7 +28,7 @@ export default function SolutionsPage() {
             {"citeLive" in job && job.citeLive ? (
               <ul className="plain-list eval-facts">
                 <li>
-                  Live vault{" "}
+                  Sepolia test vault (mid-test, ETH off){" "}
                   <a
                     className="mono"
                     href={VAULT_EXPLORER_URL}
