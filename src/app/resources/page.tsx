@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   REFERENCE_CLIENT_URL,
+  VAULT_ADDRESS,
   VAULT_EXPLORER_URL,
 } from "@/lib/config";
 import { cta, referenceClient, resources } from "@/lib/copy";
@@ -27,7 +28,7 @@ export default function ResourcesPage() {
                 <Link href="/#status">Home status board</Link>
               </p>
             ) : null}
-            {card.title === "Live vault" ? (
+            {card.title === "Sepolia test vault" ? (
               <p className="client">
                 <a
                   className="mono"
@@ -35,7 +36,7 @@ export default function ResourcesPage() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  0xa61a0569C4918C3B8b05d77A6a1638023859b565
+                  {VAULT_ADDRESS}
                 </a>
               </p>
             ) : null}

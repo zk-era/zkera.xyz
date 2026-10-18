@@ -20,7 +20,7 @@ export const site = {
 
 export const nav = {
   brand: "Era",
-  network: "Live on Sepolia",
+  network: "On Sepolia (testnet)",
   home: "Home",
   solutions: "Solutions",
   resources: "Resources",
@@ -36,11 +36,11 @@ export const cta = {
 export const hero = {
   headline: "Ethereum transfers. Without another chain.",
   sub: "Shared settlement rails for wallets and SDKs. Cheap hops inside a vault. Ethereum checks a proof when we settle.",
-  microtrust: "Live on Sepolia. ZK at settle — not on every send.",
+  microtrust: "On Sepolia (testnet). ZK at settle — not on every send.",
 };
 
 export const chips = [
-  "Live on Sepolia",
+  "On Sepolia (testnet)",
   "ZK at settleBatch",
   "Queued ≠ spendable until settle",
   "Freeze → escape",
@@ -50,7 +50,7 @@ export const notes = {
   queued: "Queued ≠ spendable until settle.",
   zk: "ZK at settleBatch only — not on every send.",
   bff: "Secrets stay BFF-only. Never in the browser.",
-  sepolia: "Live on Sepolia",
+  sepolia: "On Sepolia (testnet)",
   feeAside:
     "Sepolia notebook hops: usual ~$0.50, max $5.",
 };
@@ -144,7 +144,7 @@ export const solutions = {
     },
     {
       title: "A Sepolia spine you can actually poke.",
-      body: "Live vault, operator, settle path, and an escape hatch you can reason about — not a slide-only architecture.",
+      body: "Sepolia test vault (mid-test, ETH off), operator, settle path, and an escape hatch you can reason about — not a slide-only architecture.",
       proof: "Queued ≠ spendable is explicit.",
       citeLive: true,
     },
@@ -176,8 +176,8 @@ export const resources = {
       body: "Operator health / Sepolia status when wired — don’t invent URLs.",
     },
     {
-      title: "Live vault",
-      body: "0xa61a0569…b565 on Sepolia.",
+      title: "Sepolia test vault",
+      body: "Mid-test, ETH off.",
     },
   ],
   dontTitle: "What we don’t claim",
@@ -208,7 +208,7 @@ export const about = {
   ],
   todayTitle: "What we are today",
   today: [
-    "A live Sepolia system: vault, operator, settle, escape",
+    "A Sepolia test system: vault, operator, settle, escape",
     "A small team shipping the spine before the story",
   ],
   notTitle: "What we are not",
@@ -241,7 +241,7 @@ export const status = {
 };
 
 export const facts = {
-  vault: "Live vault",
+  vault: "Test vault",
   operator: "Operator",
 };
 
@@ -250,7 +250,7 @@ export const footer = {
   docs: "Read the docs",
   client: "Reference client",
   honesty:
-    "Live on Sepolia. ZK at settleBatch — not on every send. Queued ≠ spendable until settle. Freeze → escape if we go dark.",
+    "Sepolia test vault (mid-test, ETH off). ZK at settleBatch — not on every send. Queued ≠ spendable until settle. Freeze → escape if we go dark.",
 };
 
 export const referenceClient = {
